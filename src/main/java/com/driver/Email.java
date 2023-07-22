@@ -38,21 +38,21 @@ public class Email {
         if(currPassword.equals(oldPassword)){
             int n = newPassword.length();
             if(n<8){
-                System.out.println("Entered Password length is less than 8");
+//                System.out.println("Entered Password length is less than 8");
                 return;
             } else if (n>=8) {
                 if(isValid(newPassword)){
                     setPassword(newPassword);
-                    System.out.println("Password has been changed successfully");
+//                    System.out.println("Password has been changed successfully");
                     return;
                 }
 
-                System.out.println("Entered Password is inValid");
+//                System.out.println("Entered Password is inValid");
                 return;
 
             }
         }
-            System.out.println("Entered Password does not match with current password");
+//            System.out.println("Entered Password does not match with current password");
             return;
 
     }
