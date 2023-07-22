@@ -11,13 +11,7 @@ public class Workspace extends Gmail{
 
     private ArrayList<Meeting> calendar; // Stores all the meetings
 
-    public void setCalendar(ArrayList<Meeting> calendar) {
-        this.calendar = calendar;
-    }
 
-    public ArrayList<Meeting> getCalendar() {
-        return calendar;
-    }
 
     public Workspace(String emailId) {
         // The inboxCapacity is equal to the maximum value an integer can store.
@@ -44,11 +38,12 @@ public class Workspace extends Gmail{
         // Example: If a meeting ends at 10:00 am, you cannot attend another meeting starting at 10:00 am
 
         int maxMeet = 0;
-
+        Comparator<Meeting> comparatorAsc = (m1,m2) -> m1.getStartTime().compareTo(m2.getStartTime());
+        Collections.sort(calendar, comparatorAsc);
         LocalTime last = calendar.get(0).getEndTime();
         for(Meeting m: calendar){
 //            LocalTime start = m.getStartTime();
-            if(last.compareTo(m.getStartTime())<0){
+            if(last.isBefore(m.getStartTime())){
                 maxMeet++;
                 last = m.getStartTime();
             }
