@@ -22,11 +22,12 @@ static class Inbox{
         this.message = message;
     }
 }
-   static ArrayList<Inbox> inboxes = new ArrayList<>();
+   private ArrayList<Inbox> inboxes ;
 
     public Gmail(String emailId, int inboxCapacity){
         super.setEmailId(emailId);
         this.inboxCapacity = inboxCapacity;
+        inboxes = new ArrayList<>();
     }
 
     public void receiveMail(Date date, String sender, String message){
