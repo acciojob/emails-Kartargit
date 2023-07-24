@@ -35,7 +35,7 @@ static class Inbox{
         // 1. Each mail in the inbox is distinct.
         // 2. The mails are received in non-decreasing order. This means that the date of a new mail is greater than equal to the dates of mails received already.
         Inbox newMail = new Inbox(date,sender,message);
-        if(inboxes.size()<inboxCapacity){
+        if(inboxSize<inboxCapacity){
             inboxes.add(newMail);
             inboxSize++;
         }
@@ -50,6 +50,7 @@ static class Inbox{
     public void deleteMail(String message){
         // Each message is distinct
         // If the given message is found in any mail in the inbox, move the mail to trash, else do nothing
+
         for(int i=0;i<inboxSize;i++){
             Inbox curr = inboxes.get(i);
             if(curr.message.equals(message)){
