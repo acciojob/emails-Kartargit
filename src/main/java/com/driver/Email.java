@@ -11,13 +11,7 @@ public class Email {
         this.password = "Accio@123";
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getEmailId() {
         return emailId;
@@ -42,7 +36,7 @@ public class Email {
                 return;
             } else if (n>=8) {
                 if(isValid(newPassword)){
-                    setPassword(newPassword);
+                    this.password = newPassword;
 //                    System.out.println("Password has been changed successfully");
                     return;
                 }

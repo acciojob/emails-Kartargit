@@ -23,11 +23,12 @@ static class Inbox{
     }
 }
    private ArrayList<Inbox> inboxes ;
-
+   private ArrayList<Inbox> trash;
     public Gmail(String emailId, int inboxCapacity){
-        super.setEmailId(emailId);
+        super(emailId);
         this.inboxCapacity = inboxCapacity;
         inboxes = new ArrayList<>();
+        trash = new ArrayList<>();
     }
 
     public void receiveMail(Date date, String sender, String message){
@@ -41,6 +42,8 @@ static class Inbox{
             inboxSize++;
         }
         else{
+            Inbox trashMail = inboxes.get(0);
+            trash.add(trashMail);
             inboxes.remove(0);
             inboxes.add(newMail);
             trashSize++;
@@ -65,6 +68,7 @@ static class Inbox{
     public String findLatestMessage(){
         // If the inbox is empty, return null
         // Else, return the message of the latest mail present in the inbox
+        if(inboxSize==0)return "";
         String message = inboxes.get(inboxSize - 1).message;
         return message;
     }
@@ -79,14 +83,20 @@ static class Inbox{
     public int findMailsBetweenDates(Date start, Date end){
         //find number of mails in the inbox which are received between given dates
         //It is guaranteed that start date <= end date
-        int i = 0,j=inboxSize-1;
-        for( ;i<inboxSize;i++){
-            if(inboxes.get(i).date.equals(start))break;
+        int st = 0, en = 0;
+        for(int i=0;i<inboxSize;i++){
+            if(inboxes.get(i).date.equals(start)){
+                st = i;
+                break;
+            }
         }
-        for( ;j>=i;j--){
-            if(inboxes.get(j).date.equals(end))break;
+        for (int i=inboxSize-1;i>=0;i--){
+            if(inboxes.get(i).date.equals(end)){
+                en = i;
+                break;
+            }
         }
-        return j-i+1;
+        return en-st+1;
     }
 
     public int getInboxSize(){
@@ -101,6 +111,7 @@ static class Inbox{
 
     public void emptyTrash(){
         // clear all mails in the trash
+        trash.clear();
         trashSize = 0;
         return ;
     }
