@@ -60,18 +60,12 @@ public class Email {
         boolean upCase = false, lowCase = false, digit = false, specChar = false;
         for(int i=0;i<password.length();i++){
             int asc = (int)password.charAt(i);
-            if(!specChar){
-                if((asc<=47&&asc>=33)||(asc<=64&&asc>=58)||(asc<=96&&asc>=91)||(asc<=126&&asc>=123))specChar = true;
-            }
-            if(!digit){
+
                 if(asc>=48&&asc<=57)digit = true;
-            }
-            if(!upCase){
-                if(asc>=65&&asc<=90)upCase = true;
-            }
-            if(!lowCase){
-                if(asc>=97&&asc<=122)lowCase = true;
-            }
+                else if(asc>=65&&asc<=90)upCase = true;
+                else if(asc>=97&&asc<=122)lowCase = true;
+                else specChar = true;
+
             if(specChar&&digit&&lowCase&&upCase)return true;
         }
         return false;

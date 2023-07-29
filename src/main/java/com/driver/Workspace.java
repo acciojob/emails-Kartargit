@@ -22,14 +22,7 @@ public class Workspace extends Gmail{
     public void addMeeting(Meeting meeting){
         //add the meeting to calendar
 //        calendar = new ArrayList<>();
-        if(calendar==null){
-            calendar = new ArrayList<>();
-            calendar.add(meeting);
-        }
-        else{
-            calendar.add(meeting);
-        }
-
+        calendar.add(meeting);
     }
 
     public int findMaxMeetings(){
@@ -38,17 +31,20 @@ public class Workspace extends Gmail{
         // 2. If you want to attend a meeting, you must join it at its start time and leave at end time.
         // Example: If a meeting ends at 10:00 am, you cannot attend another meeting starting at 10:00 am
 
+        Collections.sort(calendar,(a,b)->compare(a.getEndTime(),b.getEndTime()));
+
         int maxMeet = 1;
-        Comparator<Meeting> comparatorAsc = (m1,m2) -> m1.getStartTime().compareTo(m2.getStartTime());
-        Collections.sort(calendar, comparatorAsc);
-        LocalTime last = calendar.get(0).getEndTime();
-        for(Meeting m: calendar){
-//            LocalTime start = m.getStartTime();
-            if(last.isBefore(m.getStartTime())){
+        int prevMeet = 0;
+        for(int i=1;i< calendar.size();i++){
+            if(calendar.get(i).getStartTime().isAfter(calendar.get(prevMeet).getEndTime())){
                 maxMeet++;
-                last = m.getStartTime();
+                prevMeet = i;
             }
         }
         return maxMeet;
+    }
+    public int compare(LocalTime a, LocalTime b){
+        if(a.isBefore(b))return -1;
+        else return 1;
     }
 }
